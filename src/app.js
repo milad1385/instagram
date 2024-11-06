@@ -1,14 +1,25 @@
 const express = require("express");
 const path = require("path");
+const flash = require("express-flash");
+const session = require("express-session");
 
 const { setHeaders } = require("./middlewares/headers");
 const { errorHandler } = require("./middlewares/errorHandler");
+const authRouter = require("./modules/auth/auth.routes");
 
 const app = express();
 
 //* BodyParser
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(express.json({ limit: "50mb" }));
+
+app.use(flash());
+app.use(
+  session({
+    secret: "Secret key",
+    saveUninitialized: false,
+  })
+);
 
 //* Cors Policy
 app.use(setHeaders);
@@ -25,6 +36,8 @@ app.get("/", (req, res) => {
   return res.render("index");
 });
 
+app.use("/auth", authRouter);
+
 //* 404 Error Handler
 app.use((req, res) => {
   console.log("this path is not found:", req.path);
@@ -34,6 +47,6 @@ app.use((req, res) => {
 });
 
 // TODO: Needed Feature
-app.use(errorHandler)
+app.use(errorHandler);
 
 module.exports = app;
