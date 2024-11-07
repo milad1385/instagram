@@ -13,8 +13,8 @@
 
 <body class="auth-page">
     <section id="auth-container">
-
-        <form id="auth-form">
+       
+        <form id="auth-form" method="post" action="/auth/register">
             <header>
                 <h2 class="text-3xl">
                     Get started now 🌌
@@ -29,11 +29,11 @@
 
             <main class="mt-10">
                 <div class="auth-input-card">
-                    <label for="register_fullName" class="font-Poppins-Medium">
+                    <label for="register_fullName"  class="font-Poppins-Medium">
                         Full name
                     </label>
                     <div class="relative flex input-card items-center">
-                        <input id="register_fullName" type="text" class="auth-input"
+                        <input id="register_fullName" name="name" type="text" class="auth-input"
                             placeholder="Please enter the your full name..">
                         <span class="absolute left-2 top-4 text-gray-300">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -51,7 +51,7 @@
                         Username
                     </label>
                     <div class="relative flex input-card items-center">
-                        <input id="register_username" type="text" class="auth-input"
+                        <input id="register_username" name="username"  type="text" class="auth-input"
                             placeholder="Please enter the your username..">
                         <span class="absolute left-2 top-4 text-gray-300">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -66,11 +66,11 @@
                 </div>
 
                 <div class="auth-input-card">
-                    <label for="register_email" class="font-Poppins-Medium">
+                    <label for="register_email" name="email"  class="font-Poppins-Medium">
                         Email address
                     </label>
                     <div class="relative flex input-card items-center">
-                        <input id="register_email" type="email" class="auth-input"
+                        <input id="register_email" type="email" name="email" class="auth-input"
                             placeholder="Please enter the your username..">
                         <span class="absolute left-2 top-4 text-gray-300">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -84,11 +84,11 @@
                 </div>
 
                 <div class="auth-input-card">
-                    <label for="register_password" class="font-Poppins-Medium">
+                    <label for="register_password" name="password" class="font-Poppins-Medium">
                         Password
                     </label>
                     <div class="relative flex input-card items-center">
-                        <input id="register_password" type="password" class="auth-input"
+                        <input id="register_password" name="password" type="password" class="auth-input"
                             placeholder="Please enter the your password..">
                         <span class="absolute left-2 top-4 text-gray-300">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -103,7 +103,7 @@
 
             </main>
             <footer class="mt-4">
-                <button class="bg-indigo-700 text-white rounded-sm">
+                <button type="submit" class="bg-indigo-700 text-white rounded-sm">
                     Continue
                 </button>
             </footer>
@@ -115,6 +115,25 @@
     </div>
 
     </form>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        if("<%=locals.messages.error%>"){
+            swal({
+                title :"<%=locals.messages.error%>",
+                icon : "error",
+                buttons :"Try Again"
+            })
+        }else if("<%=locals.messages.success%>"){
+            swal({
+                title :"<%=locals.messages.success%>",
+                icon : "success",
+                buttons :"Ok"
+            }).then(() =>{
+                location.href = '/'
+            })
+        }
+    </script>
 </body>
 
 </html>

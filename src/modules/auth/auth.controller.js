@@ -13,8 +13,9 @@ exports.getAndShowRegister = async (req, res, next) => {
 exports.register = async (req, res, next) => {
   try {
     const { email, username, name, password } = req.body;
+    console.log(req.body);
 
-    await registerValidationSchema(req.body);
+    // await registerValidationSchema(req.body);
 
     const isUserExist = await UserModel.findOne({
       $or: [{ username }, { email }],
@@ -22,7 +23,7 @@ exports.register = async (req, res, next) => {
 
     if (isUserExist) {
       req.flash("error", "This user is exsit already ");
-      return res.render("/auth/register");
+      return res.redirect("/auth/register");
     }
 
     const accessToken = jwt.sign({ email }, process.env.JWT_SECRET, {
@@ -35,16 +36,18 @@ exports.register = async (req, res, next) => {
       name,
       username,
       email,
+      password,
       role: usersCount === 0 ? "ADMIN" : "USER",
     });
 
-    req.flash("success", "Sign up successfully :)");
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
       path: "/",
-      maxAge: 90_000,
+      maxAge: 90000000,
     });
-    return res.render("/auth/register");
+
+    req.flash("success", "Sign up successfully :)");
+    return res.redirect("/auth/register");
   } catch (error) {
     next(error);
   }
