@@ -7,5 +7,6 @@ router
   .post(controller.register)
   .get(controller.getAndShowRegister);
 
+router.route("/login").post(controller.login).get(controller.getAndShowLogin);
 
 module.exports = router;

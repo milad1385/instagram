@@ -1,5 +1,6 @@
 const UserModel = require("../../models/User");
 const { registerValidationSchema } = require("./auth.validator");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 exports.getAndShowRegister = async (req, res, next) => {
@@ -48,6 +49,51 @@ exports.register = async (req, res, next) => {
 
     req.flash("success", "Sign up successfully :)");
     return res.redirect("/auth/register");
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.login = async (req, res, next) => {
+  try {
+    const { identifier, password } = req.body;
+
+    const user = await UserModel.findOne({
+      $or: [{ email: identifier }, { username: identifier }],
+    });
+
+    if (!user) {
+      req.flash("error", "Username or password is wrong");
+      return res.redirect("/auth/login");
+    }
+
+    const isValidPassword = await bcrypt.compare(password, user.password);
+
+    if (!isValidPassword) {
+      req.flash("error", "Username or password is wrong");
+      return res.redirect("/auth/login");
+    }
+
+    const accessToken = jwt.sign({ email }, process.env.JWT_SECRET, {
+      expiresIn: "30d",
+    });
+
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      path: "/",
+      maxAge: 90000000,
+    });
+
+    req.flash("success", "Sign in successfully :)");
+    return res.redirect("/auth/login");
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.getAndShowLogin = async (req, res, next) => {
+  try {
+    return res.render("auth/login");
   } catch (error) {
     next(error);
   }
