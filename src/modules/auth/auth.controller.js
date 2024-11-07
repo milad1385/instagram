@@ -74,9 +74,13 @@ exports.login = async (req, res, next) => {
       return res.redirect("/auth/login");
     }
 
-    const accessToken = jwt.sign({ email }, process.env.JWT_SECRET, {
-      expiresIn: "30d",
-    });
+    const accessToken = jwt.sign(
+      { email: user.email },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "30d",
+      }
+    );
 
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
