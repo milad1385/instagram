@@ -23,7 +23,7 @@ app.use(
 );
 
 //* Cors Policy
-// app.use(setHeaders);
+app.use(setHeaders);
 
 //* Static Folders
 app.use(express.static(path.join(__dirname, "..", "public")));
@@ -48,6 +48,6 @@ app.use((req, res) => {
 });
 
 // TODO: Needed Feature
-// app.use(errorHandler);
+app.use(errorHandler);
 
 module.exports = app;

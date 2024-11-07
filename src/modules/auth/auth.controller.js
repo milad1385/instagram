@@ -16,7 +16,7 @@ exports.register = async (req, res, next) => {
     const { email, username, name, password } = req.body;
     console.log(req.body);
 
-    // await registerValidationSchema(req.body);
+    await registerValidationSchema.validate(req.body, { abortEarly: false });
 
     const isUserExist = await UserModel.findOne({
       $or: [{ username }, { email }],
