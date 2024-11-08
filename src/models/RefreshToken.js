@@ -41,6 +41,8 @@ schema.statics.verifyToken = async (token) => {
   return false;
 };
 
+
+
 const model = mongoose.model("refreshToken", schema);
 
 module.exports = model;

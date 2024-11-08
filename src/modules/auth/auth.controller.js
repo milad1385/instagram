@@ -2,6 +2,7 @@ const UserModel = require("../../models/User");
 const { registerValidationSchema } = require("./auth.validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const RefreshTokenModel = require("./../../models/RefreshToken");
 
 exports.getAndShowRegister = async (req, res, next) => {
   try {
@@ -30,6 +31,8 @@ exports.register = async (req, res, next) => {
     const accessToken = jwt.sign({ email }, process.env.JWT_SECRET, {
       expiresIn: "30d",
     });
+
+    const refreshToken = await RefreshTokenModel.createToken(user);
 
     const usersCount = await UserModel.countDocuments({});
 
@@ -74,6 +77,8 @@ exports.login = async (req, res, next) => {
       return res.redirect("/auth/login");
     }
 
+    const refreshToken = await RefreshTokenModel.createToken(user);
+
     const accessToken = jwt.sign(
       { email: user.email },
       process.env.JWT_SECRET,
@@ -83,6 +88,12 @@ exports.login = async (req, res, next) => {
     );
 
     res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      path: "/",
+      maxAge: 90000000,
+    });
+
+    res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
       path: "/",
       maxAge: 90000000,
