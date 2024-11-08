@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const flash = require("express-flash");
 const session = require("express-session");
+const cookieParser = require("cookie-parser");
 
 const { setHeaders } = require("./middlewares/headers");
 const { errorHandler } = require("./middlewares/errorHandler");
@@ -15,6 +16,7 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(express.json({ limit: "50mb" }));
 
 app.use(flash());
+app.use(cookieParser());
 app.use(
   session({
     secret: "Secret key",
