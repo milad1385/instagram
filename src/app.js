@@ -6,6 +6,7 @@ const session = require("express-session");
 const { setHeaders } = require("./middlewares/headers");
 const { errorHandler } = require("./middlewares/errorHandler");
 const authRouter = require("./modules/auth/auth.routes");
+const postRouter = require("./modules/post/post.routes");
 
 const app = express();
 
@@ -38,6 +39,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/auth", authRouter);
+app.use("/post", postRouter);
 
 //* 404 Error Handler
 app.use((req, res) => {
