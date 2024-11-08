@@ -3,7 +3,7 @@ const UserModel = require("../models/User");
 module.exports = async (req, res, next) => {
   try {
     const accessToken = req.cookies?.accessToken;
-    lo
+
 
     if (!accessToken) {
       req.flash("error", "Please sign in ...");
