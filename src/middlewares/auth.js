@@ -4,7 +4,6 @@ module.exports = async (req, res, next) => {
   try {
     const accessToken = req.cookies?.accessToken;
 
-
     if (!accessToken) {
       req.flash("error", "Please sign in ...");
       return res.redirect("/auth/login");
