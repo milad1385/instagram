@@ -140,6 +140,7 @@
               >Split the hashtags with comma ( , )</span
             >
           </div>
+          <% if(locals.messages.verify){ %>
           <div class="alert error">
             <span> You need to verify your account </span>
             <div>
@@ -148,6 +149,7 @@
               </button>
             </div>
           </div>
+          <%}%>
           <!-- Upload Button -->
           <div class="mt-4 flex items-center justify-end">
             <button id="upload-button" class="max-w-max" type="submit">
