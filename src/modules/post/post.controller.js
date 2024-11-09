@@ -16,7 +16,10 @@ exports.create = async (req, res, next) => {
 
     const post = await PostModel.create({
       description,
-      media: req.file.filename,
+      media: {
+        filename: req.file.filename,
+        path: `images/post/${req.file.filename}`,
+      },
       hashtags: tags,
       user: req.user._id,
     });

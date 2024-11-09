@@ -1,10 +1,9 @@
 const path = require("path");
 const fs = require("fs");
 const multer = require("multer");
-const multer = require("multer");
 exports.multerStorage = (
   destination,
-  allowedType = /jpg | png | jpeg | webp/
+  allowedType = /jpg|png|jpeg|webp/
 ) => {
   if (!fs.existsSync(destination)) {
     fs.mkdirSync(destination);
@@ -16,8 +15,11 @@ exports.multerStorage = (
     },
 
     filename: (req, file, cb) => {
-      const uniqueName = Date.now + Math.floor(Math.random() * 1e9);
+      const now = new Date().getTime();
+      const uniqueName = now + Math.floor(Math.random() * 1e9);
       const extname = path.extname(file.originalname);
+      console.log(extname);
+
       cb(null, `${uniqueName}${extname}`);
     },
   });
