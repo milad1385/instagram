@@ -17,8 +17,6 @@ exports.showPageView = async (req, res, next) => {
       "name username biography isVerified"
     );
 
-    console.log(page);
-
     if (!hasAccessToPage) {
       req.flash("error", "This page is private !!!");
       return res.render("page/profile", {
@@ -61,6 +59,11 @@ exports.follow = async (req, res, next) => {
 
     if (existFollowing) {
       req.flash("error", "You have followed this user");
+      return res.redirect(`/page/${pageId}`);
+    }
+
+    if (req.user._id.toString() === pageId.toString()) {
+      req.flash("error", "you cant follow your self");
       return res.redirect(`/page/${pageId}`);
     }
 
