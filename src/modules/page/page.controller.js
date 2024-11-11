@@ -67,3 +67,29 @@ exports.follow = async (req, res, next) => {
   }
 };
 
+exports.unfollow = async (req, res, next) => {
+  try {
+    const { pageId } = req.params;
+
+    if (!isValidObjectId(pageId)) {
+      req.flash("error", "page id is not valid");
+      return res.redirect("/");
+    }
+
+    const page = await FollowModel.findOneAndDelete({
+      follower: req.user._id,
+      following: pageId,
+    });
+
+    if (!page) {
+      req.flash("error", "page not found");
+      return res.redirect("/");
+    }
+
+    req.flash("success", "unfollow user successfully :)");
+    return res.redirect(`/page/${pageId}`);
+  } catch (error) {
+    next(error);
+  }
+};
+
