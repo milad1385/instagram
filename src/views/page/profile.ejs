@@ -161,6 +161,7 @@
               </div>
             </div>
 
+            <%if(!page.isVerified){%>
             <!-- Verification Required Alert -->
             <div class="alert error">
               <div>
@@ -170,6 +171,7 @@
                 <button class="send-verification">Send verification</button>
               </div>
             </div>
+            <%}%>
           </main>
         </div>
 
@@ -477,5 +479,22 @@
 
     <!-- Scripts -->
     <script src="/src/Functions/profile.js"></script>
+
+    <script src="/js/sweetalert.js"></script>
+    <script>
+      if ("<%=locals.messages.error%>") {
+        swal({
+          title: "<%=locals.messages.error%>",
+          icon: "error",
+          buttons: "Try Again",
+        });
+      } else if ("<%=locals.messages.success%>") {
+        swal({
+          title: "<%=locals.messages.success%>",
+          icon: "success",
+          buttons: "Ok",
+        });
+      }
+    </script>
   </body>
 </html>

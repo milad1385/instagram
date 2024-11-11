@@ -12,17 +12,26 @@ exports.showPageView = async (req, res, next) => {
       following: pageId,
     });
 
+    const page = await UserModel.findOne(
+      { _id: pageId },
+      "name username biography isVerified"
+    );
+
+    console.log(page);
+
     if (!hasAccessToPage) {
       req.flash("error", "This page is private !!!");
       return res.render("page/profile", {
         followed: Boolean(followed),
         pageId,
+        page,
       });
     }
 
     return res.render("page/profile", {
       followed: Boolean(followed),
       pageId,
+      page,
     });
   } catch (error) {
     next(error);
@@ -92,4 +101,3 @@ exports.unfollow = async (req, res, next) => {
     next(error);
   }
 };
-
