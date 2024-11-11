@@ -70,19 +70,11 @@
         <div id="profile-details-card" class="shadow">
           <!-- Profile Header image -->
           <header class="profile-header">
-            <img
-              src="/images/feed-6.jpg"
-              class="absolute cover z-0"
-              alt=""
-            />
+            <img src="/images/feed-6.jpg" class="absolute cover z-0" alt="" />
 
             <!-- Profile Image -->
             <span class="profile-pic-card">
-              <img
-                src="/images/profile-3.jpg"
-                class="profile-pic"
-                alt=""
-              />
+              <img src="/images/profile-3.jpg" class="profile-pic" alt="" />
             </span>
           </header>
           <main class="profile-main">
@@ -147,9 +139,25 @@
                 >
                   <span> Manage </span>
                 </a>
-                <button class="unfollow-button font-Poppins-Bold">
-                  Unfollow
-                </button>
+                <%if(followed){%>
+                <form action="/page/<%= pageId%>/unfollow" method="post">
+                  <button
+                    type="submit"
+                    class="unfollow-button font-Poppins-Bold"
+                  >
+                    Unfollow
+                  </button>
+                </form>
+                <%}else{%>
+                <form action="/page/<%= pageId%>/follow" method="post">
+                  <button
+                    type="submit"
+                    class="unfollow-button font-Poppins-Bold"
+                  >
+                    follow
+                  </button>
+                </form>
+                <%}%>
               </div>
             </div>
 
