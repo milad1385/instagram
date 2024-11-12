@@ -20,6 +20,7 @@ const schema = new mongoose.Schema(
     hashtags: [String],
     user: {
       type: mongoose.Types.ObjectId,
+      ref :"User",
       required: true,
     },
   },

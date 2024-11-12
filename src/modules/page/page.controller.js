@@ -1,6 +1,7 @@
 const { isValidObjectId } = require("mongoose");
 const FollowModel = require("../../models/follow");
 const UserModel = require("../../models/User");
+const PostModel = require("../../models/Post");
 const isAllowToSeePage = require("../../utils/isAllowToSeePage");
 
 exports.showPageView = async (req, res, next) => {
@@ -31,6 +32,10 @@ exports.showPageView = async (req, res, next) => {
 
     const ownPage = req.user._id.toString() === pageId;
 
+    const posts = await PostModel.find({ user: pageId })
+      .populate("user", "username name email")
+      .sort({ _id: -1 });
+
     if (!hasAccessToPage) {
       req.flash("error", "This page is private !!!");
       return res.render("page/profile", {
@@ -40,7 +45,8 @@ exports.showPageView = async (req, res, next) => {
         followers,
         followings,
         hasAccess: hasAccessToPage,
-        ownPage
+        ownPage,
+        posts: [],
       });
     }
 
@@ -51,7 +57,8 @@ exports.showPageView = async (req, res, next) => {
       followers,
       followings,
       hasAccess: hasAccessToPage,
-      ownPage
+      ownPage,
+      posts,
     });
   } catch (error) {
     next(error);
