@@ -6,17 +6,17 @@ const tabs = [
     title: "Posts",
     items: [
       {
-        cover: "/public/images/feed-3.jpg",
+        cover: "/images/feed-3.jpg",
         caption:
           "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Neque mollitia deleniti cum similique unde atque sapiente! Lorem, ipsum dolor sit amet consectetur adipisicing elit. Neque mollitia deleniti cum similique unde atque sapiente! 💖🙌",
       },
       {
-        cover: "/public/images/feed-1.jpg",
+        cover: "/images/feed-1.jpg",
         caption:
           "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Neque mollitia deleniti cum similique unde atque sapiente! Lorem, ipsum dolor sit amet consectetur adipisicing elit. Neque mollitia deleniti cum similique unde atque sapiente! 💖🙌",
       },
       {
-        cover: "/public/images/feed-4.jpg",
+        cover: "/images/feed-4.jpg",
         caption:
           "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Neque mollitia deleniti cum similique unde atque sapiente! Lorem, ipsum dolor sit amet consectetur adipisicing elit. Neque mollitia deleniti cum similique unde atque sapiente! 💖🙌",
       },
@@ -26,12 +26,12 @@ const tabs = [
     id: 2,
     title: "Reels",
     items: [
-      { cover: "/public/images/feed-1.jpg" },
-      { cover: "/public/images/feed-2.jpg" },
-      { cover: "/public/images/feed-3.jpg" },
-      { cover: "/public/images/feed-4.jpg" },
-      { cover: "/public/images/feed-5.jpg" },
-      { cover: "/public/images/feed-6.jpg" },
+      { cover: "/images/feed-1.jpg" },
+      { cover: "/images/feed-2.jpg" },
+      { cover: "/images/feed-3.jpg" },
+      { cover: "/images/feed-4.jpg" },
+      { cover: "/images/feed-5.jpg" },
+      { cover: "/images/feed-6.jpg" },
     ],
   },
   {
@@ -60,132 +60,6 @@ const followingsButton = $.querySelector("#followings");
 const closeButton = $.querySelector("#close-button");
 
 const sendVerificationButton = $.querySelector(".send-verification");
-
-modal.addEventListener("click", (event) => {
-  event.stopPropagation();
-});
-
-followingsButton.addEventListener("click", () => {
-  modalScreen.classList.contains("visible")
-    ? modalScreen.classList.remove("visible")
-    : modalScreen.classList.add("visible");
-
-  modal.innerHTML = "";
-  modal.insertAdjacentHTML(
-    "afterbegin",
-    `
-    <header id="modal-header" class="w-full pb-4 flex items-center justify-between">
-    <div></div>
-    <div class="pl-5">
-        Following
-    </div>
-    <button onclick="modalCloseHandler()" id="close-button" class="max-w-max flex-center">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-            stroke="currentColor" class="w-6 h-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-        </svg>
-
-    </button>
-</header>
-<main class="mt-2">
-    <article class="following-card ">
-        <div class="flex items-center gap-1">
-            <div class="flex items-center gap-2">
-                <div class="w-12 h-12 rounded-full overflow-hidden">
-                    <img src="/public/images/feed-3.jpg" class="w-full object-cover h-full" alt="">
-                </div>
-                <div>
-                    <h6 class="">
-                        Elisabet Jackson
-                    </h6>
-                    <p class="text-sm font-Poppins-Light text-gray-600">
-                        @elisabet
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div>
-            <button class="follow-button text-xs">
-                Follow
-            </button>
-        </div>
-    </article>
-    <article class="following-card ">
-        <div class="flex items-center gap-1">
-            <div class="flex items-center gap-2">
-                <div class="w-12 h-12 rounded-full overflow-hidden">
-                    <img src="/public/images/profile-18.jpg" class="w-full object-cover h-full" alt="">
-                </div>
-                <div>
-                    <h6 class="">
-                        Noah Taylor
-                    </h6>
-                    <p class="text-sm font-Poppins-Light text-gray-600">
-                        @noah_gamer
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div>
-            <button class="follow-button text-xs">
-                Follow
-            </button>
-        </div>
-    </article>
-    <article class="following-card ">
-        <div class="flex items-center gap-1">
-            <div class="flex items-center gap-2">
-                <div class="w-12 h-12 rounded-full overflow-hidden">
-                    <img src="/public/images/profile-6.jpg" class="w-full object-cover h-full" alt="">
-                </div>
-                <div>
-                    <h6 class="">
-                        Hannah Smith
-                    </h6>
-                    <p class="text-sm font-Poppins-Light text-gray-600">
-                        @mrs.smith
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div>
-            <button class="follow-button text-xs">
-                Follow
-            </button>
-        </div>
-    </article>
-    <article class="following-card ">
-        <div class="flex items-center gap-1">
-            <div class="flex items-center gap-2">
-                <div class="w-12 h-12 rounded-full overflow-hidden">
-                    <img src="/public/images/profile-1.jpg" class="w-full object-cover h-full" alt="">
-                </div>
-                <div>
-                    <h6 class="">
-                        Lena Mc'Queen
-                    </h6>
-                    <p class="text-sm font-Poppins-Light text-gray-600">
-                        @the_lena
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div>
-            <button class="follow-button text-xs">
-                Follow
-            </button>
-        </div>
-    </article>
-</main>`
-  );
-});
-
-const modalCloseHandler = () => {
-  modalScreen.classList.remove("visible");
-};
-const modalOpenHandler = () => {
-  modalScreen.classList.add("visible");
-};
 
 sendVerificationButton.addEventListener("click", (event) => {
   modalOpenHandler();
@@ -332,15 +206,6 @@ const verifyCodeHandler = (OTP) => {
   }
 };
 
-modalScreen.addEventListener("click", (event) => {
-  modalCloseHandler();
-});
-
-document.onkeydown = (event) => {
-  const { keyCode } = event;
-  keyCode === 27 && modalScreen.classList.remove("visible");
-};
-
 const tabsFunc = () => {
   buttonsContainer.innerHTML = "";
   feedsContainer.innerHTML = "";
@@ -367,7 +232,7 @@ const tabsFunc = () => {
                 <article class="profile-feed-card">
                 <div>
                     <header>
-                        <img src="/public/images/profile-1.jpg" alt="profile picture"
+                        <img src="/images/profile-1.jpg" alt="profile picture"
                             class="feed-profile-picture">
                     </header>
                 </div>
@@ -464,7 +329,7 @@ const tabsFunc = () => {
                     <div class="reel-details">
                         <div>
                             <span class="text-sm">
-                            <img src="/public/images/video.svg" class="w-9  "/>
+                            <img src="/images/video.svg" class="w-9  "/>
         
                             </span>
                         </div>
@@ -508,7 +373,7 @@ const tabsFunc = () => {
                 Aww, Nothing to show :(
             </div>
             <div>
-                <img src="/public/images/notfound.png" class="not-found-image" alt="">
+                <img src="/images/notfound.png" class="not-found-image" alt="">
             </div>
             </div>
     `
@@ -517,9 +382,9 @@ const tabsFunc = () => {
   });
 };
 
-tabsFunc();
+// tabsFunc();
 
 const changePage = (title) => {
   currentTab = title;
-  tabsFunc();
+  // tabsFunc();
 };

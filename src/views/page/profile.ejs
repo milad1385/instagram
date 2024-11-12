@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Profie | <%= page.name%></title>
+    <title>Profie | <%= page.name %></title>
     <link rel="stylesheet" href="/css/index.css" />
     <link rel="stylesheet" href="/css/styles.css" />
     <link rel="stylesheet" href="/css/profile.css" />
@@ -83,11 +83,11 @@
               <div>
                 <!-- Profile username -->
                 <h4 id="profile-username" class="text-xl font-Poppins-Bold">
-                  <%= page.name%>
+                  <%= page.name %>
                 </h4>
 
                 <!-- Profile id -->
-                <p id="profile-id">@<%= page.username%></p>
+                <p id="profile-id">@<%= page.username %></p>
 
                 <!-- Profile Caption -->
                 <p class="mt-4" id="profile-caption">
@@ -118,15 +118,15 @@
                 <!-- Profile Followers/Following count -->
                 <div class="flex items center gap-4 mt-4">
                   <div class="flex items center cursor-pointer gap-1">
-                    <span class="count">49</span>
-                    <span class="text-gray-700">Followers</span>
+                    <span class="count"><%= followers.length %></span>
+                    <span class="text-gray-700 followers">Followers</span>
                   </div>
                   <div
                     id="followings"
                     class="flex items-center cursor-pointer gap-1"
                   >
-                    <span class="count">4</span>
-                    <span class="text-gray-700">Following</span>
+                    <span class="count"><%= followings.length %></span>
+                    <span class="text-gray-700 followings">Following</span>
                   </div>
                 </div>
               </div>
@@ -139,48 +139,159 @@
                 >
                   <span> Manage </span>
                 </a>
-                <%if(followed){%>
-                <form action="/page/<%= pageId%>/unfollow" method="post">
-                  <button
-                    type="submit"
-                    class="unfollow-button font-Poppins-Bold"
-                  >
+
+                <% if (followed) { %>
+                <form method="post" action="/page/<%= pageId %>/unfollow">
+                  <button class="unfollow-button font-Poppins-Bold">
                     Unfollow
                   </button>
                 </form>
-                <%}else{%>
-                <form action="/page/<%= pageId%>/follow" method="post">
-                  <button
-                    type="submit"
-                    class="unfollow-button font-Poppins-Bold"
-                  >
-                    follow
+                <% } else { %>
+                <form method="post" action="/page/<%= pageId %>/follow">
+                  <button class="unfollow-button font-Poppins-Bold">
+                    Follow
                   </button>
                 </form>
                 <%}%>
               </div>
             </div>
 
-            <%if(!page.isVerified){%>
             <!-- Verification Required Alert -->
-            <div class="alert error">
-              <div>
-                <span> This account need to get verificated </span>
+            <% if(!page.isVerified) { %>
+              <div class="alert error">
+                <div>
+                  <span> This account need to get verificated </span>
+                </div>
+                <div>
+                  <button class="send-verification">Send verification</button>
+                </div>
               </div>
-              <div>
-                <button class="send-verification">Send verification</button>
-              </div>
-            </div>
-            <%}%>
+            <% } %>
+            
           </main>
         </div>
 
         <!-- Feeds/Posts -->
         <div id="profile-feeds">
-          <header id="buttons-container" class="flex items-center"></header>
+          <header id="buttons-container" class="flex items-center">
+            <button
+              class="profile-feed__button isActive">Posts
+            <button class="profile-feed__button">Reels</button>
+          </header>
 
           <!-- Feeds -->
-          <main id="feeds-container"></main>
+          <main id="feeds-container">
+            <article class="profile-feed-card">
+              <div>
+                <header>
+                  <img
+                    src="/images/rad_front.jpg"
+                    alt="profile picture"
+                    class="feed-profile-picture"
+                  />
+                </header>
+              </div>
+              <div class="w-full">
+                <main>
+                  <h5 class="feed-username">
+                    <span><strong> Milad </strong></span>
+                  </h5>
+                </main>
+                <footer>
+                  <div>
+                    <img class="feed-image" src="" alt="" />
+                  </div>
+                  <div class="feed-card-content">
+                    <div class="feed-buttons">
+                      <button class="max-w-max">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          class="w-6 h-6"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
+                          />
+                        </svg>
+                      </button>
+                      <button class="max-w-max">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          class="w-6 h-6"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z"
+                          />
+                        </svg>
+                      </button>
+                      <button class="max-w-max">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          class="w-6 h-6"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                    <div class="text-sm my-2">
+                      <span> Liked by </span>
+                      <span>
+                        <strong> rad_front </strong>
+                      </span>
+                      <span> and </span>
+                      <span>
+                        <strong> 2,923 others </strong>
+                      </span>
+                    </div>
+                    <div>
+                      <p class="text-gray-700">
+                         Test
+                      </p>
+                    </div>
+                    <div class="mt-1">
+                      <button class="text-xs max-w-max text-gray-500">
+                        View all 294 comments ..
+                      </button>
+                    </div>
+                  </div>
+                </footer>
+              </div>
+            </article>
+              <div class="its-empty">
+                <div class="font-Poppins-Bold text-lg text-gray-900">
+                  Aww, Nothing to show :(
+                </div>
+                <div>
+                  <img
+                    src="/images/notfound.png"
+                    class="not-found-image"
+                    alt=""
+                  />
+                </div>
+              </div>
+          
+           
+            
+          </main>
 
           <!-- Footer -->
           <footer></footer>
@@ -472,29 +583,172 @@
     <!-- Footer -->
     <footer class="flex items-center gap-2"></footer>
 
-    <!-- Modal -->
-    <section id="modal" class="modal-screen">
-      <section id="modal-card"></section>
+    <!-- Followers Modal -->
+    <section id="modal" class="modal-screen followers-modal-screen">
+      <section id="modal-card">
+        <header
+          id="modal-header"
+          class="w-full pb-4 flex items-center justify-between"
+        >
+          <div></div>
+          <div class="pl-5">Followers (<%= followers.length%>)</div>
+          <button class="max-w-max flex-center followers-close-button">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6 18 18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </header>
+        <main class="mt-2">
+          <article class="following-card">
+            <div class="flex items-center gap-1">
+              <div class="flex items-center gap-2">
+                <div class="w-12 h-12 rounded-full overflow-hidden">
+                  <img
+                    src="/images/profile-1.jpg"
+                    class="w-full object-cover h-full"
+                    alt=""
+                  />
+                </div>
+                <div>
+                  <h6 class="">Milad<h6>
+                  <p class="text-sm font-Poppins-Light text-gray-600">
+                    @milad
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button class="follow-button text-xs">Follow</button>
+            </div>
+          </article>
+        </main>
+      </section>
+    </section>
+
+    <!-- Followings Modal -->
+    <section id="modal" class="modal-screen followings-modal-screen">
+      <section id="modal-card">
+        <header
+          id="modal-header"
+          class="w-full pb-4 flex items-center justify-between"
+        >
+          <div></div>
+          <div class="pl-5">Followings (<%= followings.length%>)</div>
+          <button class="max-w-max flex-center followings-close-button">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6 18 18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </header>
+        <main class="mt-2">
+          <%if(hasAccess){%>
+            <%if(followings.length){%>
+              <%followings.forEach(following => {%>
+                <article class="following-card">
+                  <div class="flex items-center gap-1">
+                    <div class="flex items-center gap-2">
+                      <div class="w-12 h-12 rounded-full overflow-hidden">
+                        <img
+                          src="/images/profile-1.jpg"
+                          class="w-full object-cover h-full"
+                          alt=""
+                        />
+                      </div>
+                      <div>
+                        <h6 class=""><%= following.name%></h6>
+                        <p class="text-sm font-Poppins-Light text-gray-600">
+                          @<%= following.username%>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <button class="follow-button text-xs">Follow</button>
+                  </div>
+                </article>
+              <%})%>
+              <%}else{%>
+                <h1 class="text-center">This Users don't have any followings</h1>
+                <%}%>
+            <%}else{%>
+              <h1 class="text-center">You can't access to followings</h1>
+              <%}%>
+        </main>
+      </section>
     </section>
 
     <!-- Scripts -->
     <script src="/js/profile.js"></script>
-
     <script src="/js/sweetalert.js"></script>
     <script>
-      if ("<%=locals.messages.error%>") {
+      if ("<%= locals.messages.error %>") {
         swal({
-          title: "<%=locals.messages.error%>",
+          title: "<%= locals.messages.error %>",
           icon: "error",
           buttons: "Try Again",
         });
-      } else if ("<%=locals.messages.success%>") {
+      } else if ("<%= locals.messages.success %>") {
         swal({
-          title: "<%=locals.messages.success%>",
+          title: "<%= locals.messages.success %>",
           icon: "success",
-          buttons: "Ok",
+          buttons: "Huraaa 😍",
         });
       }
+
+      const followersSpan = document.querySelector(".followers");
+      const followingsSpan = document.querySelector(".followings");
+
+      followersSpan.addEventListener("click", () => {
+        const followersModal = document.querySelector(
+          ".followers-modal-screen"
+        );
+        const followerModalCloseBtn = document.querySelector(
+          ".followers-close-button"
+        );
+
+        followersModal.classList.add("visible");
+
+        followerModalCloseBtn.addEventListener("click", () => {
+          followersModal.classList.remove("visible");
+        });
+      });
+
+      followingsSpan.addEventListener("click", () => {
+        const followingsModal = document.querySelector(
+          ".followings-modal-screen"
+        );
+        const followingsModalCloseBtn = document.querySelector(
+          ".followings-close-button"
+        );
+
+        followingsModal.classList.add("visible");
+
+        followingsModalCloseBtn.addEventListener("click", () => {
+          followingsModal.classList.remove("visible");
+        });
+      });
     </script>
   </body>
 </html>

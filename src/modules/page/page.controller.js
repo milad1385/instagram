@@ -12,6 +12,18 @@ exports.showPageView = async (req, res, next) => {
       following: pageId,
     });
 
+    let followers = await FollowModel.find({ following: pageId }).populate(
+      "follower"
+    );
+
+    followers = followers.map((item) => item.follower);
+
+    let followings = await FollowModel.find({ follower: pageId }).populate(
+      "following"
+    );
+
+    followings = followings.map((item) => item.following);
+
     const page = await UserModel.findOne(
       { _id: pageId },
       "name username biography isVerified"
@@ -23,6 +35,9 @@ exports.showPageView = async (req, res, next) => {
         followed: Boolean(followed),
         pageId,
         page,
+        followers,
+        followings,
+        hasAccess: hasAccessToPage,
       });
     }
 
@@ -30,6 +45,9 @@ exports.showPageView = async (req, res, next) => {
       followed: Boolean(followed),
       pageId,
       page,
+      followers,
+      followings,
+      hasAccess: hasAccessToPage,
     });
   } catch (error) {
     next(error);
