@@ -610,28 +610,38 @@
           </button>
         </header>
         <main class="mt-2">
-          <article class="following-card">
-            <div class="flex items-center gap-1">
-              <div class="flex items-center gap-2">
-                <div class="w-12 h-12 rounded-full overflow-hidden">
-                  <img
-                    src="/images/profile-1.jpg"
-                    class="w-full object-cover h-full"
-                    alt=""
-                  />
-                </div>
-                <div>
-                  <h6 class="">Milad<h6>
-                  <p class="text-sm font-Poppins-Light text-gray-600">
-                    @milad
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div>
-              <button class="follow-button text-xs">Follow</button>
-            </div>
-          </article>
+          <%if(hasAccess){%>
+            <%if(followers.length){%>
+              <%followers.forEach(follower => {%>
+                <article class="following-card">
+                  <div class="flex items-center gap-1">
+                    <div class="flex items-center gap-2">
+                      <div class="w-12 h-12 rounded-full overflow-hidden">
+                        <img
+                          src="/images/profile-1.jpg"
+                          class="w-full object-cover h-full"
+                          alt=""
+                        />
+                      </div>
+                      <div>
+                        <h6 class=""><%= follower.name%></h6>
+                        <p class="text-sm font-Poppins-Light text-gray-600">
+                          @<%= follower.username%>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <button class="follow-button text-xs">Follow</button>
+                  </div>
+                </article>
+              <%})%>
+              <%}else{%>
+                <h1 class="text-center">This Users don't have any followers</h1>
+                <%}%>
+            <%}else{%>
+              <h1 class="text-center">You can't access to followers</h1>
+              <%}%>
         </main>
       </section>
     </section>
