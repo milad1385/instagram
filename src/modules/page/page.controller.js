@@ -29,6 +29,8 @@ exports.showPageView = async (req, res, next) => {
       "name username biography isVerified"
     );
 
+    const ownPage = req.user._id.toString() === pageId;
+
     if (!hasAccessToPage) {
       req.flash("error", "This page is private !!!");
       return res.render("page/profile", {
@@ -38,6 +40,7 @@ exports.showPageView = async (req, res, next) => {
         followers,
         followings,
         hasAccess: hasAccessToPage,
+        ownPage
       });
     }
 
@@ -48,6 +51,7 @@ exports.showPageView = async (req, res, next) => {
       followers,
       followings,
       hasAccess: hasAccessToPage,
+      ownPage
     });
   } catch (error) {
     next(error);

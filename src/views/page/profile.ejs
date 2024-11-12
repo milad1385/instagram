@@ -133,12 +133,14 @@
 
               <!-- Manage -->
               <div class="flex items-center gap-2">
-                <a
+                <%if(ownPage){%>
+                  <a
                   href="/src/Pages/ProfileUpdate/Hosna/index.html"
                   class="min-w-max flex items-center gap-1 manage-button"
                 >
                   <span> Manage </span>
                 </a>
+                <%}%>
 
                 <% if (followed) { %>
                 <form method="post" action="/page/<%= pageId %>/unfollow">
