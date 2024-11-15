@@ -70,7 +70,7 @@ exports.like = async (req, res, next) => {
       return res.redirect("back");
     }
 
-    const hasAccess = await isAllowToSeePage(user._id, postId);
+    const hasAccess = await isAllowToSeePage(user._id, post.user);
 
     if (!hasAccess) {
       req.flash("You cant like private page post");

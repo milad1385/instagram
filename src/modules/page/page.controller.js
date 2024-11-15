@@ -2,6 +2,7 @@ const { isValidObjectId } = require("mongoose");
 const FollowModel = require("../../models/follow");
 const UserModel = require("../../models/User");
 const PostModel = require("../../models/Post");
+const LikeModel = require("../../models/like");
 const isAllowToSeePage = require("../../utils/isAllowToSeePage");
 
 exports.showPageView = async (req, res, next) => {
@@ -35,6 +36,21 @@ exports.showPageView = async (req, res, next) => {
     const posts = await PostModel.find({ user: pageId })
       .populate("user", "username name email")
       .sort({ _id: -1 });
+
+    const likes = await LikeModel.find({ user: req.user._id }).populate(
+      "post",
+      "_id"
+    );
+
+    posts.forEach((post) => {
+      likes.forEach((like) => {
+        if (post._id.toString() === like.post._id.toString()) {
+          post.hasLike = true;
+        }
+      });
+    });
+
+    
 
     if (!hasAccessToPage) {
       req.flash("error", "This page is private !!!");

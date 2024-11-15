@@ -12,4 +12,7 @@ router
   .post(auth, multer.single("media"), controller.create)
   .get(auth, isVerifyAccount, controller.getPostView);
 
+router.route("/:postId/like").post(auth, controller.like);
+router.route("/:postId/dislike").post(auth, controller.dislike);
+
 module.exports = router;
