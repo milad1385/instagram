@@ -150,7 +150,7 @@
                     Unfollow
                   </button>
                 </form>
-                <% } else { %>
+                <% } else if(!ownPage) { %>
                 <form method="post" action="/page/<%= pageId %>/follow">
                   <button class="unfollow-button font-Poppins-Bold">
                     Follow
