@@ -23,6 +23,11 @@ const schema = new mongoose.Schema(
 schema.statics.createToken = async (user) => {
   const expireDates = new Date() + 900_000;
   const token = UUID.v4();
+
+  const refreshToken = await model.findOne({ user });
+  if (refreshToken.expire >= Date.now()) {
+    return false;
+  }
   const createdToken = await model.create({
     user: user._id,
     expire: expireDates,
@@ -40,8 +45,6 @@ schema.statics.verifyToken = async (token) => {
 
   return false;
 };
-
-
 
 const model = mongoose.model("refreshToken", schema);
 

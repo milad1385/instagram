@@ -15,7 +15,6 @@ exports.getAndShowRegister = async (req, res, next) => {
 exports.register = async (req, res, next) => {
   try {
     const { email, username, name, password } = req.body;
-    console.log(req.body);
 
     await registerValidationSchema.validate(req.body, { abortEarly: false });
 
@@ -32,17 +31,17 @@ exports.register = async (req, res, next) => {
       expiresIn: "30d",
     });
 
-    const refreshToken = await RefreshTokenModel.createToken(user);
-
     const usersCount = await UserModel.countDocuments({});
 
-    await UserModel.create({
+    const user = await UserModel.create({
       name,
       username,
       email,
       password,
       role: usersCount === 0 ? "ADMIN" : "USER",
     });
+
+    const refreshToken = await RefreshTokenModel.createToken(user);
 
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
