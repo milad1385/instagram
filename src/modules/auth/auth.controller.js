@@ -46,7 +46,13 @@ exports.register = async (req, res, next) => {
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
       path: "/",
-      maxAge: 90000000,
+      maxAge: 90_000_000,
+    });
+
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      path: "/",
+      maxAge: 90_000_000,
     });
 
     req.flash("success", "Sign up successfully :)");
