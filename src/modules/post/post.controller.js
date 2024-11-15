@@ -1,6 +1,7 @@
 const { isValidObjectId } = require("mongoose");
 const PostModel = require("../../models/Post");
 const LikeModel = require("../../models/like");
+const SaveModel = require("../../models/Save");
 const isAllowToSeePage = require("../../utils/isAllowToSeePage");
 const { createNewPostSchema } = require("./post.validator");
 
@@ -107,6 +108,52 @@ exports.dislike = async (req, res, next) => {
     }
 
     await LikeModel.findOneAndDelete({ post: postId, user: user._id });
+
+    return res.redirect("back");
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.saveAndUnSave = async (req, res, next) => {
+  try {
+    const { postId } = req.params;
+    const user = req.user;
+
+    if (!isValidObjectId(postId)) {
+      req.flash("error", "Post id is not valid :(");
+      return res.redirect("back");
+    }
+
+    const post = await PostModel.findOne({ _id: postId });
+
+    if (!post) {
+      req.flash("error", "Post is not found :(");
+
+      return res.redirect("back");
+    }
+
+    const existSaving = await SaveModel.findOne({
+      post: postId,
+      user: user._id,
+    });
+
+    if (existSaving) {
+      await SaveModel.findOneAndDelete({ user: user._id, post: postId });
+      return res.redirect("back");
+    }
+
+    const hasAccess = await isAllowToSeePage(user._id, post.user);
+
+    if (!hasAccess) {
+      req.flash("error", "You cant save private page post");
+      return res.redirect("back");
+    }
+
+    await SaveModel.create({
+      post: postId,
+      user: user._id,
+    });
 
     return res.redirect("back");
   } catch (error) {
