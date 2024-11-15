@@ -13,6 +13,14 @@ exports.getPostView = async (req, res, next) => {
   }
 };
 
+exports.getSaveView = async (req , res , next) =>{
+  try {
+    return res.render("post/saves");
+  } catch (error) {
+    next(error);
+  }
+}
+
 exports.create = async (req, res, next) => {
   try {
     const { description, hashtags } = req.body;

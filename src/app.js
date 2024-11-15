@@ -9,6 +9,7 @@ const { errorHandler } = require("./middlewares/errorHandler");
 const authRouter = require("./modules/auth/auth.routes");
 const postRouter = require("./modules/post/post.routes");
 const pageRouter = require("./modules/page/page.routes");
+const homeRouter = require("./modules/home/home.routes");
 
 const app = express();
 
@@ -37,13 +38,11 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 //* Routes
-app.get("/", (req, res) => {
-  return res.render("index");
-});
 
 app.use("/auth", authRouter);
 app.use("/post", postRouter);
 app.use("/page", pageRouter);
+app.use("/", homeRouter);
 
 //* 404 Error Handler
 app.use((req, res) => {

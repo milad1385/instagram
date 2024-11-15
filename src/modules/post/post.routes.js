@@ -16,6 +16,8 @@ router.route("/:postId/like").post(auth, controller.like);
 router.route("/:postId/dislike").post(auth, controller.dislike);
 router.route("/:postId/save").post(auth, controller.saveAndUnSave);
 
+router.route("/save").get(auth , controller.getSaveView)
+
 
 
 module.exports = router;
