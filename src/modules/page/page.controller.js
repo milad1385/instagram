@@ -3,6 +3,7 @@ const FollowModel = require("../../models/follow");
 const UserModel = require("../../models/User");
 const PostModel = require("../../models/Post");
 const LikeModel = require("../../models/like");
+const SaveModel = require("../../models/Save");
 const isAllowToSeePage = require("../../utils/isAllowToSeePage");
 
 exports.showPageView = async (req, res, next) => {
@@ -42,6 +43,11 @@ exports.showPageView = async (req, res, next) => {
       "_id"
     );
 
+    const saves = await SaveModel.find({ user: req.user._id }).populate(
+      "post",
+      "_id"
+    );
+
     posts.forEach((post) => {
       likes.forEach((like) => {
         if (post._id.toString() === like.post._id.toString()) {
@@ -50,7 +56,13 @@ exports.showPageView = async (req, res, next) => {
       });
     });
 
-    
+    posts.forEach((post) => {
+      saves.forEach((save) => {
+        if (post._id.toString() === save.post._id.toString()) {
+          post.isSave = true;
+        }
+      });
+    });
 
     if (!hasAccessToPage) {
       req.flash("error", "This page is private !!!");
