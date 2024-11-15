@@ -1,5 +1,15 @@
 const PostModel = require("../../models/Post");
+const LikeModel = require("../../models/like");
+const isAllowToSeePage = require("../../utils/isAllowToSeePage");
 const { createNewPostSchema } = require("./post.validator");
+
+exports.getPostView = async (req, res, next) => {
+  try {
+    return res.render("post/create");
+  } catch (error) {
+    next(error);
+  }
+};
 
 exports.create = async (req, res, next) => {
   try {
@@ -32,9 +42,41 @@ exports.create = async (req, res, next) => {
   }
 };
 
-exports.getPostView = async (req, res, next) => {
+exports.like = async (req, res, next) => {
   try {
-    return res.render("post/create");
+    const user = req.user;
+    const { postId } = req.params;
+
+    const post = await PostModel.findOne({ _id: postId });
+
+    if (!post) {
+      req.flash("error", "Post is not found");
+      return res.redirect("back");
+    }
+
+    const isLikeExist = await LikeModel.findOne({
+      user: user._id,
+      post: postId,
+    });
+
+    if (isLikeExist) {
+      req.flash("error", "You like this post already :(");
+      return res.redirect("back");
+    }
+
+    const hasAccess = await isAllowToSeePage(user._id, postId);
+
+    if (!hasAccess) {
+      req.flash("You cant like private page post");
+      return res.redirect("back");
+    }
+
+    await LikeModel.create({
+      post: postId,
+      user: user._id,
+    });
+
+    res.redirect("back");
   } catch (error) {
     next(error);
   }
