@@ -81,3 +81,24 @@ exports.like = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.dislike = async (req, res, next) => {
+  try {
+    const { postId } = req.params;
+
+    const user = req.user;
+
+    const post = await PostModel.findOne({ _id: postId });
+
+    if (!post) {
+      req.flash("error", "post is not found :(");
+      return res.redirect("back");
+    }
+
+    await LikeModel.findOneAndDelete({ post: postId, user: user._id });
+
+    return res.redirect("back");
+  } catch (error) {
+    next(error);
+  }
+};
