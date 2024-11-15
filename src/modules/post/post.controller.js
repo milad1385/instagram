@@ -1,3 +1,4 @@
+const { isValidObjectId } = require("mongoose");
 const PostModel = require("../../models/Post");
 const LikeModel = require("../../models/like");
 const isAllowToSeePage = require("../../utils/isAllowToSeePage");
@@ -47,6 +48,11 @@ exports.like = async (req, res, next) => {
     const user = req.user;
     const { postId } = req.params;
 
+    if (!isValidObjectId(postId)) {
+      req.flash("error", "Post id is not valid :(");
+      return res.redirect("back");
+    }
+
     const post = await PostModel.findOne({ _id: postId });
 
     if (!post) {
@@ -85,6 +91,11 @@ exports.like = async (req, res, next) => {
 exports.dislike = async (req, res, next) => {
   try {
     const { postId } = req.params;
+
+    if (!isValidObjectId(postId)) {
+      req.flash("error", "Post id is not valid :(");
+      return res.redirect("back");
+    }
 
     const user = req.user;
 
