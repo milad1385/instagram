@@ -170,3 +170,43 @@ exports.showUpdatePage = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.updateProfile = async (req, res, next) => {
+  try {
+    const { name, username, email, birth, address, biography, city, country } =
+      req.body;
+
+    const userID = req.user._id;
+
+    // if (!req.file) {
+    //   req.flash("error", "Please upload your image ... ");
+    //   return res.redirect("/");
+    // }
+
+    const user = await UserModel.findOne({ _id: userID });
+
+    const profilePath = `/images/profile/${req.file?.filename}`;
+
+    await UserModel.findOneAndUpdate(
+      { _id: userID },
+      {
+        $set: {
+          name,
+          username,
+          email,
+          birth,
+          address,
+          city,
+          country,
+          biography,
+          profilePicture: req.file ? profilePath : user.profilePicture,
+        },
+      }
+    );
+
+    req.flash("success", "Your profile edited successfully :)");
+    return res.redirect("/");
+  } catch (error) {
+    next(error);
+  }
+};
