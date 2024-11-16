@@ -161,3 +161,12 @@ exports.unfollow = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.showUpdatePage = async (req, res, next) => {
+  try {
+    const user = req.user;
+    return res.render("page/editProfile", { user });
+  } catch (error) {
+    next(error);
+  }
+};

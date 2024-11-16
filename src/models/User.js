@@ -40,6 +40,22 @@ const schema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    city: {
+      type: String,
+      required: false,
+    },
+    country: {
+      type: String,
+      required: false,
+    },
+    address: {
+      type: String,
+      required: false,
+    },
+    birth: {
+      type: String,
+      required: false,
+    },
   },
   { timestamps: true }
 );

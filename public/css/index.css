@@ -9,6 +9,18 @@
   --main-purple: #7c3aed;
 }
 
+.edit-profile-picture{
+  border-radius: 50%;
+  display: block;
+}
+
+.edit-profile-picture img{
+  border-radius: 50% !important;
+  display: block !important;
+}
+
+
+
 input {
   outline: none;
   border: none;
