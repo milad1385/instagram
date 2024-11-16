@@ -178,11 +178,6 @@ exports.updateProfile = async (req, res, next) => {
 
     const userID = req.user._id;
 
-    // if (!req.file) {
-    //   req.flash("error", "Please upload your image ... ");
-    //   return res.redirect("/");
-    // }
-
     const user = await UserModel.findOne({ _id: userID });
 
     const profilePath = `/images/profile/${req.file?.filename}`;
