@@ -20,7 +20,7 @@ exports.getSaveView = async (req, res, next) => {
       populate: {
         path: "user",
       },
-    });
+    }).sort({_id : -1});
 
     const likes = await LikeModel.find({ user: req.user._id }).populate(
       "post",
