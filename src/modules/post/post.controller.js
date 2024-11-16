@@ -13,13 +13,36 @@ exports.getPostView = async (req, res, next) => {
   }
 };
 
-exports.getSaveView = async (req , res , next) =>{
+exports.getSaveView = async (req, res, next) => {
   try {
-    return res.render("post/saves");
+    const saves = await SaveModel.find({ user: req.user._id }).populate({
+      path: "post",
+      populate: {
+        path: "user",
+      },
+    });
+
+    const likes = await LikeModel.find({ user: req.user._id }).populate(
+      "post",
+      "_id"
+    );
+
+    saves.forEach((save) => {
+      likes.forEach((like) => {
+        if (save.post._id.toString() === like.post._id.toString()) {
+          save.post.hasLike = true;
+          console.log(save.post.hasLike);
+        }
+      });
+    });
+
+    return res.render("post/saves", {
+      saves,
+    });
   } catch (error) {
     next(error);
   }
-}
+};
 
 exports.create = async (req, res, next) => {
   try {
