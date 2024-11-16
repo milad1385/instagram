@@ -29,7 +29,7 @@ exports.showPageView = async (req, res, next) => {
 
     const page = await UserModel.findOne(
       { _id: pageId },
-      "name username biography isVerified"
+      "name username biography isVerified profilePicture"
     );
 
     const ownPage = req.user._id.toString() === pageId;
