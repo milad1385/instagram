@@ -10,6 +10,10 @@ header {
   background: white;
 }
 
+#content{
+  width: 100%;
+}
+
 .logo {
   font-family: "Poppins-Black" !important;
   color: #0f172a;

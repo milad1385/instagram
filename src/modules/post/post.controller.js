@@ -15,12 +15,14 @@ exports.getPostView = async (req, res, next) => {
 
 exports.getSaveView = async (req, res, next) => {
   try {
-    const saves = await SaveModel.find({ user: req.user._id }).populate({
-      path: "post",
-      populate: {
-        path: "user",
-      },
-    }).sort({_id : -1});
+    const saves = await SaveModel.find({ user: req.user._id })
+      .populate({
+        path: "post",
+        populate: {
+          path: "user",
+        },
+      })
+      .sort({ _id: -1 });
 
     const likes = await LikeModel.find({ user: req.user._id }).populate(
       "post",
@@ -31,7 +33,6 @@ exports.getSaveView = async (req, res, next) => {
       likes.forEach((like) => {
         if (save.post._id.toString() === like.post._id.toString()) {
           save.post.hasLike = true;
-          console.log(save.post.hasLike);
         }
       });
     });

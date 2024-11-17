@@ -290,88 +290,73 @@
         <section id="feeds">
           <!-- Feed Card -->
           <%saves.forEach(save => {%>
-            <article class="feed-card shadow">
-              <!-- Feed header -->
-              <header>
-                <a
-                  href="/src/Pages/Profiles/Hosna/index.html"
-                  class="flex items-center gap-3"
-                >
-                  <div>
-                    <img
-                      src="/images/profile-1.jpg"
-                      alt="Profile card"
-                      class="w-8 rounded-full"
-                    />
-                  </div>
-                  <div>
-                    <p class="font-Poppins-Medium text-sm twitter-name">
-                      <%= save.post.user.name%>
-                    </p>
-                    <p class="tweet-time">
-                      <span>Dubai</span>
-                      ,
-                      <span>6 Minutes Ago</span>
-                    </p>
-                  </div>
-                </a>
-              </header>
-  
-              <!-- Feed body -->
-              <main class="tweet-body">
-                <img
-                  clas
-                  src="http://localhost:4002/<%= save.post.media.path%>"
-                  class="tweet-image object-cover"
-                  alt=""
-                />
-              </main>
-  
-              <!-- Feed footer -->
-              <footer class="px-4">
-                <!-- Like & Comment Share / Views & Save Button -->
-                <section class="flex items-center justify-between">
-                  <div class="flex items-center gap-2">
-                    <%if(save.post.hasLike){%>
-                      <form action="/post/<%= save.post._id%>/dislike" method="post">
-                        <button class="max-w-max">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="red"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            class="w-6 h-6"
-                          >
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
-                            />
-                          </svg>
-                        </button>
-                      </form>
-                    <%}else{%>
-                      <form action="/post/<%= save.post._id%>/like" method="post">
-                        <button class="max-w-max">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            class="w-6 h-6"
-                          >
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
-                            />
-                          </svg>
-                        </button>
-                      </form>
-                    <%}%>
-                    <button title="comment" class="max-w-max">
+          <article class="feed-card shadow">
+            <!-- Feed header -->
+            <header>
+              <a
+                href="/src/Pages/Profiles/Hosna/index.html"
+                class="flex items-center gap-3"
+              >
+                <div>
+                  <img
+                    src="/images/profile-1.jpg"
+                    alt="Profile card"
+                    class="w-8 rounded-full"
+                  />
+                </div>
+                <div>
+                  <p class="font-Poppins-Medium text-sm twitter-name">
+                    <%= save.post.user.name%>
+                  </p>
+                  <p class="tweet-time">
+                    <span>Dubai</span>
+                    ,
+                    <span>6 Minutes Ago</span>
+                  </p>
+                </div>
+              </a>
+            </header>
+
+            <!-- Feed body -->
+            <main class="tweet-body">
+              <img
+                clas
+                src="http://localhost:4002/<%= save.post.media.path%>"
+                class="tweet-image object-cover"
+                alt=""
+              />
+            </main>
+
+            <!-- Feed footer -->
+            <footer class="px-4">
+              <!-- Like & Comment Share / Views & Save Button -->
+              <section class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <%if(save.post.hasLike){%>
+                  <form
+                    action="/post/<%= save.post._id%>/dislike"
+                    method="post"
+                  >
+                    <button class="max-w-max">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="red"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="w-6 h-6"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
+                        />
+                      </svg>
+                    </button>
+                  </form>
+                  <%}else{%>
+                  <form action="/post/<%= save.post._id%>/like" method="post">
+                    <button class="max-w-max">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -383,130 +368,169 @@
                         <path
                           stroke-linecap="round"
                           stroke-linejoin="round"
-                          d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z"
+                          d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
                         />
                       </svg>
                     </button>
-                    <button title="comment" class="max-w-max">
+                  </form>
+                  <%}%>
+
+                  <form action="/post/<%= save.post._id%>/save" method="post">
+                    <button class="max-w-max">
+                      <svg
+                        fill="#000000"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="w-6 h-6"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M5 6.2C5 5.07989 5 4.51984 5.21799 4.09202C5.40973 3.71569 5.71569 3.40973 6.09202 3.21799C6.51984 3 7.07989 3 8.2 3H15.8C16.9201 3 17.4802 3 17.908 3.21799C18.2843 3.40973 18.5903 3.71569 18.782 4.09202C19 4.51984 19 5.07989 19 6.2V21L12 16L5 21V6.2Z"
+                          stroke="#000000"
+                          stroke-width="2"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </button>
+                  </form>
+
+                  <button title="comment" class="max-w-max">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="w-6 h-6"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z"
+                      />
+                    </svg>
+                  </button>
+                  <button title="comment" class="max-w-max">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="w-6 h-6"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z"
+                      />
+                    </svg>
+                  </button>
+                </div>
+
+                <!-- Views, Save -->
+                <div class="flex items-center gap-2 justify-between">
+                  <!-- Views -->
+                  <div class="flex items-center gap-1 text-xs text-gray-700">
+                    <span>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke-width="1.5"
                         stroke="currentColor"
-                        class="w-6 h-6"
+                        class="w-4 h-4"
                       >
                         <path
                           stroke-linecap="round"
                           stroke-linejoin="round"
-                          d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z"
+                          d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"
+                        />
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
                         />
                       </svg>
-                    </button>
+                    </span>
+                    <span class="text-xs"> 29,428 </span>
                   </div>
-  
-                  <!-- Views, Save -->
-                  <div class="flex items-center gap-2 justify-between">
-                    <!-- Views -->
-                    <div class="flex items-center gap-1 text-xs text-gray-700">
+
+                  <!-- save button -->
+                  <div class="max-h-max">
+                    <button class="save-button">
                       <span>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
                           viewBox="0 0 24 24"
-                          stroke-width="1.5"
-                          stroke="currentColor"
+                          fill="currentColor"
                           class="w-4 h-4"
                         >
                           <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"
-                          />
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                            fill-rule="evenodd"
+                            d="M6.32 2.577a49.255 49.255 0 0 1 11.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 0 1-1.085.67L12 18.089l-7.165 3.583A.75.75 0 0 1 3.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93Z"
+                            clip-rule="evenodd"
                           />
                         </svg>
                       </span>
-                      <span class="text-xs"> 29,428 </span>
-                    </div>
-  
-                    <!-- save button -->
-                    <div class="max-h-max">
-                      <button class="save-button">
-                        <span>
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                            class="w-4 h-4"
-                          >
-                            <path
-                              fill-rule="evenodd"
-                              d="M6.32 2.577a49.255 49.255 0 0 1 11.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 0 1-1.085.67L12 18.089l-7.165 3.583A.75.75 0 0 1 3.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93Z"
-                              clip-rule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                        <span> save </span>
-                      </button>
-                    </div>
+                      <span> save </span>
+                    </button>
                   </div>
-                </section>
-  
-                <!-- Likes count -->
-                <div class="mt-1 flex items-center relative">
-                  <div class="liked-by-wrapper relative block">
-                    <span>
-                      <img src="./images/profile-5.jpg" class="likedBy" alt="" />
-                    </span>
-                    <span>
-                      <img
-                        src="./images/profile-6.jpg"
-                        class="likedBy left-3 z-10"
-                        alt=""
-                      />
-                    </span>
-                    <span> </span>
+                </div>
+              </section>
+
+              <!-- Likes count -->
+              <div class="mt-1 flex items-center relative">
+                <div class="liked-by-wrapper relative block">
+                  <span>
+                    <img src="./images/profile-5.jpg" class="likedBy" alt="" />
+                  </span>
+                  <span>
                     <img
-                      src="./images/profile-7.jpg"
-                      class="likedBy left-6 z-20"
+                      src="./images/profile-6.jpg"
+                      class="likedBy left-3 z-10"
                       alt=""
                     />
-                  </div>
-  
-                  <div class="text-sm">
-                    <span> Liked by </span>
-                    <span>
-                      <strong> rad_front </strong>
-                    </span>
-                    <span> and </span>
-                    <span>
-                      <strong> 2,923 others </strong>
-                    </span>
-                  </div>
-                </div>
-  
-                <!-- User Infos (name, description) -->
-                <div class="mt-1 text-sm gap-1">
-                  <span>
-                    <strong> Lena Mc'Queen </strong>
                   </span>
-                  <p class="text-gray-700">
-                    Lorem ipsum dolor sit amet consectetur.
-                  </p>
+                  <span> </span>
+                  <img
+                    src="./images/profile-7.jpg"
+                    class="likedBy left-6 z-20"
+                    alt=""
+                  />
                 </div>
-  
-                <!-- View all comments -->
-                <div>
-                  <button class="text-xs max-w-max text-gray-500">
-                    View all 294 comments ..
-                  </button>
+
+                <div class="text-sm">
+                  <span> Liked by </span>
+                  <span>
+                    <strong> rad_front </strong>
+                  </span>
+                  <span> and </span>
+                  <span>
+                    <strong> 2,923 others </strong>
+                  </span>
                 </div>
-              </footer>
-            </article>
+              </div>
+
+              <!-- User Infos (name, description) -->
+              <div class="mt-1 text-sm gap-1">
+                <span>
+                  <strong> Lena Mc'Queen </strong>
+                </span>
+                <p class="text-gray-700">
+                  Lorem ipsum dolor sit amet consectetur.
+                </p>
+              </div>
+
+              <!-- View all comments -->
+              <div>
+                <button class="text-xs max-w-max text-gray-500">
+                  View all 294 comments ..
+                </button>
+              </div>
+            </footer>
+          </article>
           <%})%>
         </section>
       </section>
