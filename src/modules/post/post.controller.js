@@ -4,6 +4,7 @@ const LikeModel = require("../../models/like");
 const SaveModel = require("../../models/Save");
 const isAllowToSeePage = require("../../utils/isAllowToSeePage");
 const { createNewPostSchema } = require("./post.validator");
+const deletePic = require("../../utils/deletePic");
 
 exports.getPostView = async (req, res, next) => {
   try {
@@ -213,6 +214,8 @@ exports.deletePost = async (req, res, next) => {
       req.flash("You cant delete another account post");
       return res.redirect("back");
     }
+
+    deletePic(post.media.filename, "post");
 
     await PostModel.findOneAndDelete({ _id: id });
 
