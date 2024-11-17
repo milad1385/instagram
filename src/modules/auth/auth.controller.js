@@ -118,3 +118,21 @@ exports.getAndShowLogin = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.logout = async (req, res, next) => {
+  try {
+    res.cookie("accessToken", "", {
+      path: "/",
+      maxAge: 0,
+    });
+
+    res.cookie("refreshToken", "", {
+      path: "/",
+      maxAge: 0,
+    });
+
+    return res.redirect("/auth/login");
+  } catch (error) {
+    next(error);
+  }
+};
