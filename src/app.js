@@ -10,6 +10,7 @@ const authRouter = require("./modules/auth/auth.routes");
 const postRouter = require("./modules/post/post.routes");
 const pageRouter = require("./modules/page/page.routes");
 const homeRouter = require("./modules/home/home.routes");
+const apiDocRouter = require("./modules/apiDocs/sawgger.routes");
 
 const app = express();
 
@@ -39,10 +40,11 @@ app.set("views", path.join(__dirname, "views"));
 
 //* Routes
 
+app.use("/", homeRouter);
+app.use("/api-doc", apiDocRouter);
 app.use("/auth", authRouter);
 app.use("/post", postRouter);
 app.use("/page", pageRouter);
-app.use("/", homeRouter);
 
 //* 404 Error Handler
 app.use((req, res) => {

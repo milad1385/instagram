@@ -1,0 +1,124 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Instagram social media 💖",
+    "description": "Description for social media project",
+    "version": "1.0.0"
+  },
+  "components": [],
+  "tags": [
+    { "name": "Auth", "description": "Auth api" },
+    { "name": "Page", "description": "You can manage page details" },
+    { "name": "Post", "description": "You can manage post" }
+  ],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "You can regsiter user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "email": "milad@gmail.com",
+                  "username": "milad1385",
+                  "name": "Milad Salamaian",
+                  "password": "123456789"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User resgister successfully :)"
+          },
+          "500": {
+            "description": "Intenal server error"
+          },
+          "422": {
+            "description": "Please send valid property"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "You can login user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "identifier": "milad@gmail.com",
+                  "password": "123456789"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User login successfully :)"
+          },
+          "500": {
+            "description": "Intenal server error"
+          },
+          "422": {
+            "description": "Please send valid property"
+          }
+        }
+      }
+    },
+    "/page/{userId}": {
+      "get": {
+        "tags": ["Page"],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "summary": "You can get page detail",
+        "requestBody": {},
+        "responses": {
+          "200": {
+            "description": "User login successfully :)"
+          },
+          "500": {
+            "description": "Intenal server error"
+          }
+        }
+      }
+    },
+    "/post/delete/{postId}": {
+      "delete": {
+        "tags": ["Post"],
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "summary": "You can delete post",
+        "requestBody": {},
+        "responses": {
+          "200": {
+            "description": "User login successfully :)"
+          },
+          "500": {
+            "description": "Intenal server error"
+          }
+        }
+      }
+    }
+  }
+}
