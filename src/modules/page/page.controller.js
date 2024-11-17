@@ -35,7 +35,7 @@ exports.showPageView = async (req, res, next) => {
     const ownPage = req.user._id.toString() === pageId;
 
     const posts = await PostModel.find({ user: pageId })
-      .populate("user", "username name email")
+      .populate("user", "username name email profilePicture")
       .sort({ _id: -1 });
 
     const likes = await LikeModel.find({ user: req.user._id }).populate(
