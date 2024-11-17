@@ -192,3 +192,36 @@ exports.saveAndUnSave = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.deletePost = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    if (!isValidObjectId(id)) {
+      req.flash("error", "Please send valid id");
+      return res.redirect("back");
+    }
+
+    const post = await PostModel.findOne({ _id: id });
+
+    if (!post) {
+      req.flash("error", "post is not found :(");
+      return res.redirect("back");
+    }
+
+    if (req.user._id.toString() !== post.user.toString()) {
+      req.flash("You cant delete another account post");
+      return res.redirect("back");
+    }
+
+    await PostModel.findOneAndDelete({ _id: id });
+
+    await SaveModel.deleteMany({ post: id });
+    await LikeModel.deleteMany({ post: id });
+
+    req.flash("success", "Post deleted successfully :)");
+    return res.redirect("back");
+  } catch (error) {
+    next(error);
+  }
+};
