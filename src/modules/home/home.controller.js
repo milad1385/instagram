@@ -7,7 +7,7 @@ exports.showHomePage = async (req, res, next) => {
 
     
     const posts = await PostModel.find({})
-      .populate("user", "name username")
+      .populate("user", "name username profilePicture city country")
       .sort({ _id: -1 });
 
     const likes = await LikeModel.find({ user: req.user._id }).populate(

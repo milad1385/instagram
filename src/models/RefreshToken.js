@@ -25,7 +25,7 @@ schema.statics.createToken = async (user) => {
   const token = UUID.v4();
 
   const refreshToken = await model.findOne({ user });
-  if (refreshToken.expire >= Date.now()) {
+  if (refreshToken?.expire >= Date.now()) {
     return false;
   }
   const createdToken = await model.create({

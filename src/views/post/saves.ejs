@@ -287,9 +287,9 @@
         </div>
 
         <!-- Feeds / Posts -->
-        <section id="feeds">
+        <section id="feeds" style="display: flex; justify-content: center;">
           <!-- Feed Card -->
-          <%saves.forEach(save => {%>
+          <%if(saves.length){%> <%saves.forEach(save => {%>
           <article class="feed-card shadow">
             <!-- Feed header -->
             <header>
@@ -531,7 +531,16 @@
               </div>
             </footer>
           </article>
-          <%})%>
+          <%})%> <%}else{%>
+          <div class="its-empty">
+            <div style="text-align: center;" class="font-Poppins-Bold text-lg text-gray-900">
+              Aww, Nothing to show :(
+            </div>
+            <div>
+              <img src="/images/notfound.png" class="not-found-image" alt="" />
+            </div>
+          </div>
+          <%}%>
         </section>
       </section>
 

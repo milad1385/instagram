@@ -72,11 +72,13 @@
             />
           </div>
           <div>
-            <p
-              class="user-profile-name text-gray-900 font-Poppins-Bold text-sm"
-            >
-              <%= user.name%>
-            </p>
+            <a href="/page/<%= user._id%>">
+              <p
+                class="user-profile-name text-gray-900 font-Poppins-Bold text-sm"
+              >
+                <%= user.name%>
+              </p>
+            </a>
             <p class="font-Poppins-Light text-xs text-gray-500">
               @<%= user.username%>
             </p>
@@ -410,17 +412,17 @@
               >
                 <div>
                   <img
-                    src="/images/profile-1.jpg"
+                    src="<%= post.user.profilePicture%>"
                     alt="Profile card"
                     class="w-8 rounded-full"
                   />
                 </div>
                 <div>
                   <p class="font-Poppins-Medium text-sm twitter-name">
-                    Lena Mc'Queen
+                   <%= post.user.name%>
                   </p>
                   <p class="tweet-time">
-                    <span>Dubai</span>
+                    <span><%= post.user.country%> , <%= post.user.city%></span>
                     ,
                     <span>6 Minutes Ago</span>
                   </p>
