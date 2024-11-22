@@ -147,7 +147,7 @@ exports.showForgetPassword = async (req, res, next) => {
 
 exports.showResetPassword = async (req, res, next) => {
   try {
-    return res.render("auth/forget-password");
+    return res.render("auth/reset-password");
   } catch (error) {
     next(error);
   }
