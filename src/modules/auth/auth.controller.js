@@ -3,6 +3,8 @@ const { registerValidationSchema } = require("./auth.validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const RefreshTokenModel = require("./../../models/RefreshToken");
+const ResetPasswordModel = require("../../models/ResetPassword");
+const nodemailer = require("nodemailer");
 
 exports.getAndShowRegister = async (req, res, next) => {
   try {
@@ -155,6 +157,28 @@ exports.showResetPassword = async (req, res, next) => {
 
 exports.forgetPassword = async (req, res, next) => {
   try {
+    const { email } = req.body;
+    const user = await UserModel.find({ email });
+
+    if (!user) {
+      req.flash("error", "user is not found");
+      return res.redirect("back");
+    }
+    const transporter = await nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "",
+        pass: "",
+      },
+    });
+
+    const mailOption = {
+      from: "",
+      to: "",
+      subject: "",
+      html: "",
+    };
+    transporter.sendMail(mailOption);
   } catch (error) {
     next(error);
   }
