@@ -136,3 +136,33 @@ exports.logout = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.showForgetPassword = async (req, res, next) => {
+  try {
+    return res.render("auth/forget-password");
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.showResetPassword = async (req, res, next) => {
+  try {
+    return res.render("auth/forget-password");
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.forgetPassword = async (req, res, next) => {
+  try {
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.resetPassword = async (req, res, next) => {
+  try {
+  } catch (error) {
+    next(error);
+  }
+};
