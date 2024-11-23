@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const RefreshTokenModel = require("./../../models/RefreshToken");
 const ResetPasswordModel = require("../../models/ResetPassword");
 const nodemailer = require("nodemailer");
+const crypto = require("crypto");
 
 exports.getAndShowRegister = async (req, res, next) => {
   try {
@@ -158,28 +159,49 @@ exports.showResetPassword = async (req, res, next) => {
 exports.forgetPassword = async (req, res, next) => {
   try {
     const { email } = req.body;
-    const user = await UserModel.find({ email });
+    const user = await UserModel.findOne({ email });
 
     if (!user) {
       req.flash("error", "user is not found");
       return res.redirect("back");
     }
-    const transporter = await nodemailer.createTransport({
+
+    const token = crypto.randomBytes(32).toString("hex");
+
+    const expireTime = new Date().getTime() + 1000 * 60 * 60;
+    console.log(user);
+
+    await ResetPasswordModel.create({
+      token,
+      expireTime,
+      user: user._id,
+    });
+
+    const transport = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "",
-        pass: "",
+        user: "miladsalami1385@gmail.com",
+        pass: "oeaw bnuz ptdk gemi",
       },
     });
 
-    const mailOption = {
-      from: "",
-      to: "",
-      subject: "",
-      html: "",
+    const mailOptions = {
+      from: "miladsalami1385@gmail.com",
+      to: email,
+      subject: "پشتیبانی سایت",
+      html: `
+      <h1>Hi , ${user.name}</h1> 
+      <a href=http://localhost:4002/auth/reset-password/${token}>Click Here for reset email</a>
+      `,
     };
-    transporter.sendMail(mailOption);
+
+    transport.sendMail(mailOptions);
+
+    req.flash("success", "Email send successfully :)");
+    return res.redirect("back");
   } catch (error) {
+    console.log(error);
+
     next(error);
   }
 };
