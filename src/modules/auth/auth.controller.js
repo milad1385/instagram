@@ -191,7 +191,7 @@ exports.forgetPassword = async (req, res, next) => {
       subject: "پشتیبانی سایت",
       html: `
       <h1>Hi , ${user.name}</h1> 
-      <a href=http://localhost:4002/auth/reset-password/${token}>Click Here for reset email</a>
+      <a href=http://localhost:4002/auth/reset-password?token=${token}>Click Here for reset email</a>
       `,
     };
 
@@ -208,6 +208,38 @@ exports.forgetPassword = async (req, res, next) => {
 
 exports.resetPassword = async (req, res, next) => {
   try {
+    const { token, password } = req.body;
+    console.log("req sended");
+    
+    console.log(token);
+
+    if (!token) {
+      req.flash("error", "token is not valid");
+      return res.redirect("/forget-password");
+    }
+
+    const resetPassword = await ResetPasswordModel.findOne({ token });
+
+    if (!resetPassword || resetPassword.expireTime < Date.now()) {
+      req.flash("error", "token is not valid");
+      return res.redirect("/forget-password");
+    }
+
+    const newPassword = await bcrypt.hash(password, 10);
+
+    await UserModel.findOneAndUpdate(
+      { _id: resetPassword.user },
+      {
+        $set: {
+          password: newPassword,
+        },
+      }
+    );
+
+    await ResetPasswordModel.findOneAndDelete({ token });
+
+    req.flash("success", "new password set successfully :)");
+    return res.redirect("/auth/login");
   } catch (error) {
     next(error);
   }

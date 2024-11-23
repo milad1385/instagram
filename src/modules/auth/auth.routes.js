@@ -17,7 +17,7 @@ router
   .post(controller.forgetPassword);
 
 router
-  .route("/reset-password/:token")
+  .route("/reset-password")
   .get(controller.showResetPassword)
   .post(controller.resetPassword);
 
